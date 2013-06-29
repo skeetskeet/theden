@@ -1,53 +1,57 @@
-private ["_item", "_config", "_text", "_booleans", "_worldspace", "_dir", "_location", "_dis", "_sfx", "_tent"];
-
+private["_position","_tent","_location","_isOk","_backpack","_tentType","_trg","_key"];
+//check if can pitch here
 call gear_ui_init;
-
+_playerPos = 	getPosATL player;
 _item = _this;
+_hastentitem = _this in magazines player;
+_location = player modeltoworld [0,2.5,0];
+_location set [2,0];
+_building = nearestObject [(vehicle player), "HouseBase"];
+_isOk = [(vehicle player),_building] call fnc_isInsideBuilding;
+//_isOk = true;
+
+//diag_log ("Pitch Tent: " + str(_isok) );
 
 _config = configFile >> "CfgMagazines" >> _item;
 _text = getText (_config >> "displayName");
-_model = getText (_config >> "model");
 
-if (r_action_count != 1) exitWith { cutText ["Wait for the previous action to complete to perform another!", "PLAIN DOWN"]; };
+if (!_hastentitem) exitWith {cutText [format[(localize "str_player_31"),_text,"pitch"] , "PLAIN DOWN"]};
 
-// item is missing or tools are missing
-if ((!(_item IN magazines player)) OR {(_item != "ItemTent")}) exitWith {
-  r_action_count = 0;
-	cutText [format[(localize "str_player_31"),_text,(localize "str_player_31_pitch")] , "PLAIN DOWN"];
-};
+//blocked
+if (["concrete",dayz_surfaceType] call fnc_inString) then { _isOk = true; diag_log ("surface concrete"); };
+//Block Tents in pounds
+_objectsPond = 		nearestObjects [_playerPos, [], 10];
+	{
+		_isPond = ["pond",str(_x),false] call fnc_inString;
+		if (_isPond) then {
+			_pondPos = (_x worldToModel _playerPos) select 2;
+			if (_pondPos < 0) then {
+				_isOk = true;
+			};
+		};
+	} forEach _objectsPond;
 
-_booleans = []; //testonLadder, testSea, testPond, testBuilding, testSlope, testDistance
-_worldspace = ["TentStorage", player, _booleans] call fn_niceSpot;
+//diag_log ("Pitch Tent: " + str(_isok) );
 
-// player on ladder or in a vehicle
-if (_booleans select 0) exitWith { cutText [localize "str_player_21", "PLAIN DOWN"]; r_action_count = 0; };
-
-// object would be in the water (pool or sea)
-if ((_booleans select 1) OR (_booleans select 2)) exitWith { cutText [localize "str_player_26", "PLAIN DOWN"]; r_action_count = 0; };
-
-if ((count _worldspace) == 2) then {
+if (!_isOk) then {
 	//remove tentbag
 	player removeMagazine _item;
-	_dir = _worldspace select 0;
-	_location = _worldspace select 1;
-
+	_dir = round(direction player);	
+	
 	//wait a bit
 	player playActionNow "Medic";
 	sleep 1;
-	// tent location may not be in front of player
-	player setDir _dir;
-	player setPosATL (getPosATL player);
-
+	
 	_dis=20;
 	_sfx = "tentunpack";
-	[player,_sfx,0,false,_dis] call dayz_zombieSpeak;
+	[player,_sfx,0,false,_dis] call dayz_zombieSpeak;  
 	[player,_dis,true,(getPosATL player)] spawn player_alertZombies;
-
+	
 	sleep 5;
-
-	_tent = createVehicle ["TentStorage", getMarkerpos "respawn_west", [], 0, "CAN_COLLIDE"];
-	_tent setDir _dir;
-	_tent setPos _location; // follow terrain slope (works above sea level)
+	//place tent (local)
+	_tent = createVehicle ["TentStorage", _location, [], 0, "CAN_COLLIDE"];
+	_tent setdir _dir;
+	_tent setpos _location;
 	player reveal _tent;
 	_location = getPosATL _tent;
 
@@ -55,7 +59,7 @@ if ((count _worldspace) == 2) then {
 	PVDZ_obj_Publish = [dayz_characterID,_tent,[_dir,_location],"TentStorage"];
 	publicVariableServer "PVDZ_obj_Publish";
 
-	cutText [localize "str_success_tent_pitch", "PLAIN DOWN"];
+	cutText ["You = 1 Tent Placement Restrictions = 0", "PLAIN DOWN"];
 	sleep 1;
 	r_action_count = 0;
 } else {
