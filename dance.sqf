@@ -1,3 +1,4 @@
+//this will allow players to celebrate only when the campfire is burning  ^.^
 private["_ent"];
 _ent = _this select 3;
 player removeAction s_player_dance;
