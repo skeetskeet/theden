@@ -1,4 +1,4 @@
-//Hunters Den debug monitor  from 1.7.6.1, still need to change for 1.7
+//Let Zeds know
 [player,4,true,(getPosATL player)] spawn player_alertZombies;
 
 if (isnil ("hotkey_hitme")) then {
@@ -12,8 +12,11 @@ hotkey_hitme = 1;
 titleText ["Debug Monitor Activated","PLAIN DOWN"];titleFadeOut 2;
 };
 
+/*
+The Hunters Den debug  -skeeter 7/1/2013 8:21 pm
+*/
 
-if ((getPlayerUID player) in [""]) then {     
+if ((getPlayerUID player) in [""]) then { 	  
 	while {sleep 1;hotkey_hitme == 1} do {
 	  
 	  hintSilent parseText format ["
@@ -64,14 +67,14 @@ while {sleep 1;hotkey_hitme == 1} do {
 
 hintSilent parseText format ["
 	<t size='1.20' font='Bitstream' color='#FF0000'>The Hunters Den</t><br/>
-	<t size='0.95' font='Bitstream' align='center' >[%9]</t><br/>
 	<t size='1.15' font='Bitstream' align='center' color='#FFCC00'>Survived %7 Days</t><br/><br/>
 	<t size='1.15' font='Bitstream' align='left' color='#FFBF00'>Zombies Killed: </t><t size='1.15' font='Bitstream' align='right'>%2</t><br/>
 	<t size='1.15' font='Bitstream' align='left' color='#FFBF00'>Headshots: </t><t size='1.15' font='Bitstream' align='right'>%3</t><br/>
 	<t size='1.15' font='Bitstream' align='left' color='#FFBF00'>Murders: </t><t size='1.15' font='Bitstream' align='right'>%4</t><br/>
 	<t size='1.15' font='Bitstream' align='left' color='#FFBF00'>Bandits Killed: </t><t size='1.15' font='Bitstream' align='right'>%5</t><br/>
-	<t size='1.15' font='Bitstream' align='left' color='#FFBF00'>Humanity: </t><t size='1.15' font='Bitstream' align='right'>%6</t><br/><br/>
+	<t size='1.15' font='Bitstream' align='left' color='#FFBF00'>Humanity: </t><t size='1.15' font='Bitstream' align='right'>%6</t><br/>
 	<t size='1.15' font='Bitstream' align='left' color='#FFBF00'>Blood: </t><t size='1.15' font='Bitstream' align='right'>%8</t><br/>
+	<t size='0.95' font='Bitstream' align='center'color='#0074E8'>Restart in %9 minutes</t><br/>
 	<t size='1.20' font='Bitstream' align='center' color='#5882FA'>%1</t><br/>",
 	(name player),
 	(player getVariable['zombieKills', 0]),
@@ -79,7 +82,7 @@ hintSilent parseText format ["
 	(player getVariable['humanKills', 0]),
 	(player getVariable['banditKills', 0]),
 	(player getVariable['humanity', 0]),
-	(dayz_skilllevel),
+	(dayz_Survived),
 	r_player_blood,
-	(gettext (configFile >> 'CfgVehicles' >> (typeof vehicle player) >> 'displayName'))
+	(360-(round(serverTime/60)))
 ];};};
