@@ -13,17 +13,13 @@ private["_display","_btnRespawn","_btnAbort","_timeOut","_timeMax","_isDead","_w
 		_state = currentWeapon player;
 		_weapons = ['glock17_EP1','Colt1911','M9','M9SD','Makarov','MakarovSD','revolver_EP1','Sa61_EP1','UZI_EP1'];
 		_newtime = 300;
-		//_closeit = _display closeDisplay 49;
+		//_closeit = _display closeDisplay 49; //no need to declare as variable
 
 		
 		dayz_lastCheckSave = time;
 		
 		if(r_player_dead) exitWith {_btnAbort ctrlEnable true;};
 		if(r_fracture_legs) exitWith {_btnRespawn ctrlEnable true; _btnAbort ctrlEnable true;};
-		//if(_state in _weapons) exitWith { 
-		//	_closeit;
-		//	cutText ["-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out -SKEETERS ANTIDUPE-", "PLAIN"];
-		//};	
 			
 		//force gear save
 		if (time - dayz_lastCheckSave > 10) then {
@@ -48,7 +44,7 @@ private["_display","_btnRespawn","_btnAbort","_timeOut","_timeMax","_isDead","_w
 				    _display closeDisplay 49;
 					//cutText ["-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out -SKEETERS ANTIDUPE-", "PLAIN"];
 					//hint ("-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out -SKEETERS ANTIDUPE-");
-					titleText ["-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out. If caught exploiting this, you will be BANNED -SKEETERS ANTIDUPE-", "PLAIN", 5];
+					titleText ["-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out. If caught exploiting this, you will be BANNED -SKEETERS ANTIDUPE-", "PLAIN", 3];
 				};	
 				default {
 					_btnAbort ctrlEnable true;
