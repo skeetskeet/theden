@@ -42,9 +42,7 @@ private["_display","_btnRespawn","_btnAbort","_timeOut","_timeMax","_isDead","_w
 				};
 				case (_state in _weapons) : {
 				    _display closeDisplay 49;
-					//cutText ["-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out -SKEETERS ANTIDUPE-", "PLAIN"];
-					//hint ("-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out -SKEETERS ANTIDUPE-");
-					titleText ["-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out. If caught exploiting this, you will be BANNED -SKEETERS ANTIDUPE-", "PLAIN", 3];
+					titleText ["-SKEETERS ANTIDUPE- To be able to log out, you must: Switch to a primary weapon, or drop ur pistol, or put pistol in backpack. If caught exploiting this, you will be BANNED. -SKEETERS ANTIDUPE-", "PLAIN", 3];
 				};	
 				default {
 					_btnAbort ctrlEnable true;
