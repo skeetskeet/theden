@@ -1,5 +1,5 @@
 private["_display","_btnRespawn","_btnAbort","_timeOut","_timeMax","_isDead","_weapons","_newtime","_state","_closeit"];
-  disableSerialization;
+	disableSerialization;
 		waitUntil {
 			_display = findDisplay 49;
 			!isNull _display;
@@ -13,7 +13,7 @@ private["_display","_btnRespawn","_btnAbort","_timeOut","_timeMax","_isDead","_w
 		_state = currentWeapon player;
 		_weapons = ['glock17_EP1','Colt1911','M9','M9SD','Makarov','MakarovSD','revolver_EP1','Sa61_EP1','UZI_EP1'];
 		_newtime = 300;
-		_closeit = _display closeDisplay 49;
+		//_closeit = _display closeDisplay 49;
 
 		
 		dayz_lastCheckSave = time;
@@ -44,8 +44,8 @@ private["_display","_btnRespawn","_btnAbort","_timeOut","_timeMax","_isDead","_w
 					_btnAbort ctrlEnable false;
 					cutText [localize "str_abort_playerincombat", "PLAIN DOWN"];					
 				};
-				case (_state in _weapons && _timeMax <= _newtime) : {
-				    _closeit;
+				case (_state in _weapons) : {
+				    _display closeDisplay 49;
 					//cutText ["-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out -SKEETERS ANTIDUPE-", "PLAIN"];
 					//hint ("-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out -SKEETERS ANTIDUPE-");
 					titleText ["-SKEETERS ANTIDUPE- Switch to primary weapon, or drop pistol, or put pistol in backpack to log out -SKEETERS ANTIDUPE-", "PLAIN", "5"];
