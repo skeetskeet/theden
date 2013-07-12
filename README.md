@@ -9,4 +9,4 @@ Started this git 6/29/2013  *not much here yet, slowly adding everything here
 
 I will be adding all my work from dayz here.  
 
-As well as misc. PHP and javascript work.
+As well as misc. C++, PHP, and javascript
