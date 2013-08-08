@@ -1,4 +1,3 @@
-// learning.cpp : Defines the entry point for the console application.
 
 //                         _         _                   _                _        ______ 
 //                        | |       | |                 | |              | |       | ___ \
