@@ -1,3 +1,14 @@
+//                         _         _                   _                _        ______ 
+//                        | |       | |                 | |              | |       | ___ \
+//   _ __ ___    __ _   __| |  ___  | |__   _   _   ___ | | __ ___   ___ | |_  ___ | |_/ /
+//  | '_ ` _ \  / _` | / _` | / _ \ | '_ \ | | | | / __|| |/ // _ \ / _ \| __|/ _ \|    / 
+//  | | | | | || (_| || (_| ||  __/ | |_) || |_| | \__ \|   <|  __/|  __/| |_|  __/| |\ \ 
+//  |_| |_| |_| \__,_| \__,_| \___| |_.__/  \__, | |___/|_|\_\\___| \___| \__|\___|\_| \_|
+//                                           __/ |                                        
+//                                          |___/                                          
+//needed to somehow remove the restrictions for placing tents in latest version of dayz
+//this is for the players of The Hunters Den  ^.^
+
 private["_position","_tent","_location","_isOk","_backpack","_tentType","_trg","_key"];
 //check if can pitch here
 call gear_ui_init;
